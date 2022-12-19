@@ -18,10 +18,6 @@ public class IfForExample {
             int d=90;
             if (p==d) System.out.println("p equal d ");
             else System.out.println("p Not equal d ");}
-
-
-
-
         }
 
     }
