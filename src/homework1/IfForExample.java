@@ -14,11 +14,11 @@ public class IfForExample {
             System.out.println(c);
             System.out.println(v);}
 
-            {int p=70;
+            int p=70;
             int d=90;
-            if (p==d) System.out.println("p equal d ");
+            {if (p==d) System.out.println("p equal d ");
             else System.out.println("p Not equal d ");}
         }
 
     }
-}
+ }
