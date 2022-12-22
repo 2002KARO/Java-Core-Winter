@@ -21,13 +21,9 @@ public class ArrayUtil {
             for (int i = 0; i < myArray.length; i++) {
                 if (max<myArray[i]){
                     max =myArray[i];
-                    System.out.println(max);
-                }
-
-            }
-
-
+                    System.out.println(max);}}
         }
+
     }
 
 }
