@@ -10,14 +10,13 @@ public class ArrayUtil {
         int min = myArray[0];
         for (int i = 0; i < myArray.length; i++) {
             if (min>myArray[i]){
-                min=myArray[i];
-            }
-
+                min=myArray[i];}
         }
         System.out.println();
         System.out.println(min);
 
-        {int max= myArray[0] ;
+        {
+            int max= myArray[0] ;
             for (int i = 0; i < myArray.length; i++) {
                 if (max<myArray[i]){
                     max =myArray[i];
