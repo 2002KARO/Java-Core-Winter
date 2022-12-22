@@ -7,20 +7,27 @@ public class ArrayUtil {
             System.out.println(myArray[i]);
 
         }
+        int min = myArray[0];
+        for (int i = 0; i < myArray.length; i++) {
+            if (min>myArray[i]){
+                min=myArray[i];
+            }
+
+        }
         System.out.println();
-        for (int i = 0; i < 10; i++) {
+        System.out.println(min);
 
-        }int i=10;
-         int b=90;
-         if (i<b) System.out.println(myArray[7]);
-         else System.out.println(myArray[8]);
+        {int max= myArray[0] ;
+            for (int i = 0; i < myArray.length; i++) {
+                if (max<myArray[i]){
+                    max =myArray[i];
+                    System.out.println(max);
+                }
 
-        System.out.println();
-         int q=90;
-         int g=70;
-         if (q>g) System.out.println(myArray[0]);
-         else System.out.println(myArray[1]);
+            }
 
 
+        }
     }
+
 }
