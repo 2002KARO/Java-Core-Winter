@@ -2,19 +2,19 @@ package homework2;
 
 public class ArrayUtil2 {
     public static void main(String[] args) {
-        int[]Shortsarr={12,33,6,90,88,7,5,0};
-        int arrlen = Shortsarr.length;
+        int[]shortsarr={12,33,6,90,88,7,5,0};
+        int arrlen = shortsarr.length;
         int numeralsCount = 0;
         int notnumeralsCount = 0;
         int arrsum = 0;
-        int arrFirstElement=Shortsarr[0];
-        int arrLastElement=Shortsarr[arrlen -1];
-        int arrMiddleElement = Shortsarr[arrlen /2];
+        int arrFirstElement=shortsarr[0];
+        int arrLastElement=shortsarr[arrlen -1];
+        int arrMiddleElement = shortsarr[arrlen /2];
         //all elements
         System.out.println("All Elemenets; ");
-        for (int i = 0; i < Shortsarr.length ; i++) {
-            arrsum+=Shortsarr[i];
-            System.out.print(i+")" +Shortsarr[i]);
+        for (int i = 0; i < shortsarr.length ; i++) {
+            arrsum+=shortsarr[i];
+            System.out.print(i+")" +shortsarr[i]);
             if (i!=arrlen -1);
                 System.out.print(", ");
 
@@ -22,10 +22,10 @@ public class ArrayUtil2 {
             //All numerals not numerals
             // numerals and not numerals count
             System.out.println();
-            for (int j = 0; j < Shortsarr.length; j++) {
-                if (Shortsarr[i]% 2 == 0){
+            for (int j = 0; j < shortsarr.length; j++) {
+                if (shortsarr[i]% 2 == 0){
                     numeralsCount++;
-                        System.out.print(Shortsarr[i]);
+                        System.out.print(shortsarr[i]);
                     if (i != arrlen -1)
                         System.out.print(", ");
                     notnumeralsCount ++;
