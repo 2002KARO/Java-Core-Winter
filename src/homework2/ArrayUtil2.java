@@ -15,20 +15,20 @@ public class ArrayUtil2 {
         for (int i = 0; i < Shortsarr.length ; i++) {
             arrsum+=Shortsarr[i];
             System.out.print(i+")" +Shortsarr[i]);
-            if (i!=arrlen -1);{
+            if (i!=arrlen -1);
                 System.out.print(", ");
-            }
+
             System.out.println();
             //All numerals not numerals
             // numerals and not numerals count
             System.out.println();
             for (int j = 0; j < Shortsarr.length; j++) {
                 if (Shortsarr[i]% 2 == 0){
-                    numeralsCount++;{
-                        System.out.print(Shortsarr[i]);}
-                    if (i != arrlen -1){
+                    numeralsCount++;
+                        System.out.print(Shortsarr[i]);
+                    if (i != arrlen -1)
                         System.out.print(", ");
-                    }notnumeralsCount ++;
+                    notnumeralsCount ++;
 
 
                 }
