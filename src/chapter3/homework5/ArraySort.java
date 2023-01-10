@@ -32,15 +32,8 @@ public class ArraySort {
                if (numbers[i]<numbers[j]){
                    o=numbers[i];
                    numbers[i]=numbers[j];
-                   numbers[j]=o;
-               }
-
-
+                   numbers[j]=o;}
             }
-            {
-
-            }
-
         }
     }
 }
