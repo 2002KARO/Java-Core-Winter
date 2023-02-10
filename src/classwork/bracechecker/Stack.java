@@ -1,4 +1,4 @@
-package classwork.homework10;
+package classwork.bracechecker;
 
 public class Stack {
     int[] array = new int[10];
@@ -10,7 +10,7 @@ public class Stack {
 
     void push(int item) {
         if (tos == 9) {
-            System.out.println("Stack filled");
+            System.out.println("Ստեկում տեշ չկա ");
         } else {
             array[++tos] = item;
         }
@@ -24,5 +24,12 @@ public class Stack {
 
         return array[tos--];
 
+
     }
-}
+
+    public boolean isEmpty(){
+        return tos==-1;
+
+
+    }
+ }
