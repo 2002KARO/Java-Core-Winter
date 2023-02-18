@@ -1,4 +1,4 @@
-package group1.chapter3;
+package group2.chapter3;
 
 public class ForTest {
     public static void main(String[] args) {

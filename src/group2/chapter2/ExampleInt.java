@@ -1,4 +1,4 @@
-package group1.chapter2;
+package group2.chapter2;
 
 public class ExampleInt {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package group1.chapter1;
+package group2.chapter1;
 
 public class BooleanTest {
     public static void main(String[] args) {
