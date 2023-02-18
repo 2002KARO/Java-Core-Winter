@@ -22,7 +22,9 @@ public class EmployeeDemo {
                     employeeStorage.print();
                     break;
                 case "3":
-                    getEmployeeById();
+                    System.out.println("Please input employee id");
+                    String inputId = scanner.nextLine();
+                    System.out.println(employeeStorage.getEmployeeById(inputId));
                     break;
                 case "4":
                     System.out.println("Please input company name");
