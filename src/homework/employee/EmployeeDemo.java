@@ -2,19 +2,22 @@ package homework.employee;
 
 import homework.employee.model.Employee;
 import homework.employee.storage.EmployeeStorage;
+import homework.employee.util.DateUtil;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Scanner;
 
 public class EmployeeDemo {
     static Scanner scanner = new Scanner(System.in);
     static EmployeeStorage employeeStorage = new EmployeeStorage();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         boolean isRun = true;
 
-        employeeStorage.add(new Employee("Jack", "Daniels", "a001", 100, "company 1", "manager"));
-        employeeStorage.add(new Employee("Daniel", "Time", "a002", 200, "company 1", "manager middle"));
-        employeeStorage.add(new Employee("Mike", "Smart", "a003", 300, "company 1", "manager senior"));
+        employeeStorage.add(new Employee("Jack", "Daniels", "a001", 100, "company 1", "manager",true,new Date(),DateUtil.StringToDate("02/01/2022")));
+        employeeStorage.add(new Employee("Daniel", "Time", "a002", 200, "company 1", "manager middle",true,new Date(),DateUtil.StringToDate("03/02/2011")));
+        employeeStorage.add(new Employee("Mike", "Smart", "a003", 300, "company 1", "manager senior",true,new Date(),DateUtil.StringToDate("04/07/2009")));
         while (isRun) {
             printCommands();
             String command = scanner.nextLine();
@@ -147,15 +150,17 @@ public class EmployeeDemo {
         }
     }
 
-    public static void addEmployee() {
-        System.out.println("Please input name, surname,employeeId,salary,company,position");
+    public static void addEmployee() throws ParseException {
+        System.out.println("Please input name, surname,employeeId,salary,company,position,DateOfBirthday(15/04/1994)");
         String employeeDataStr = scanner.nextLine();
         String[] employeeData = employeeDataStr.split(",");
         String employeeId = employeeData[2];
         Employee employee = employeeStorage.getEmployeeById(employeeId);
         if (employee == null) {
+            Date registerDate = new Date();
+            Date dateOfBirthday = DateUtil.StringToDate(employeeData[6]);
             employee = new Employee(employeeData[0], employeeData[1],
-                    employeeId, Double.parseDouble(employeeData[3]), employeeData[4], employeeData[5]);
+                    employeeId, Double.parseDouble(employeeData[3]), employeeData[4], employeeData[5],true, registerDate,dateOfBirthday);
             employeeStorage.add(employee);
             System.out.println("Employee was added");
         } else System.out.println("Employee with" + employeeId + "already exists!");
