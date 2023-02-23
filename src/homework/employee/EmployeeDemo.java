@@ -160,7 +160,7 @@ public class EmployeeDemo {
             Date registerDate = new Date();
             Date dateOfBirthday = DateUtil.StringToDate(employeeData[6]);
             employee = new Employee(employeeData[0], employeeData[1],
-                    employeeId, Double.parseDouble(employeeData[3]), employeeData[4], employeeData[5],true, registerDate,dateOfBirthday);
+                    employeeId, Double.parseDouble(employeeData[3]), employeeData[4], employeeData[5],true, registerDate,dateOfBirthday,);
             employeeStorage.add(employee);
             System.out.println("Employee was added");
         } else System.out.println("Employee with" + employeeId + "already exists!");
