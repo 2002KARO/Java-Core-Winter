@@ -1,77 +1,109 @@
 package homework.homework10.employee.model;
-import java.util.Objects;
+
+import homework.homework10.employee.util.DateUtil;
+
 import java.util.Date;
-import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 public class Employee {
 
-    // Date format objects
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat sdfFull = new SimpleDateFormat("dd/MM/yyyy HH:m:ss");
-
-    // Employee Data
     private String name;
     private String surname;
-    private String employeeID;
+    private String employeeId;
     private double salary;
     private Company company;
     private String position;
-    private boolean active = true;
+    private boolean active;
     private Date registerDate;
     private Date dateOfBirthday;
 
-    // Employee Full Constructor
-    public Employee(String name, String surname, String employeeID, double salary, Company company, String position, Date dateOfBirthday, Date registerDate) {
+
+    public Employee(String name, String surname, String employeeId, double salary,
+                    Company company, String position, boolean active,Date registerDate,Date dateOfBirthday) {
         this.name = name;
         this.surname = surname;
-        this.employeeID = employeeID;
+        this.employeeId = employeeId;
         this.salary = salary;
         this.company = company;
         this.position = position;
+        this.active = active;
         this.dateOfBirthday = dateOfBirthday;
         this.registerDate = registerDate;
     }
 
-    // If Empty Constructor
     public Employee() {
     }
 
-    // GETTERS:
-    public String getPosition() { return position; }
-    public boolean isActive() { return active; }
-    public String getName() { return name; }
-    public String getSurname() { return surname; }
-    public String getEmployeeID() { return employeeID; }
-    public double getSalary() { return salary; }
-    public Company getCompany() { return company; }
-    public Date getDateOfBirthday() { return dateOfBirthday; }
-    public Date getRegisterDate() { return registerDate; }
+    public String getName() {
+        return name;
+    }
 
-    // SETTERS:
-    public void setPosition(String position) { this.position = position; }
-    public void setActive(boolean active) { this.active = active; }
-    public void setName(String name) { this.name = name; }
-    public void setSurname(String surname) { this.surname = surname; }
-    public void setEmployeeID(String employeeID) { this.employeeID = employeeID; }
-    public void setSalary(double salary) { this.salary = salary;}
-    public void setCompany(Company company) { this.company = company;}
-    public void setDateOfBirthday(Date dateOfBirthday) { this.dateOfBirthday = dateOfBirthday; }
-    public void setRegisterDate(Date registerDate) { this.registerDate = registerDate; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    // OVERRIDES:
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", employeeID='" + employeeID + '\'' +
-                ", salary=" + salary +
-                ", company='" + company + '\'' +
-                ", position='" + position + '\'' +
-                ", active=" + active +
-                ", registerDate='" + sdfFull.format(registerDate) + '\'' +
-                ", dateOfBirthday='" + sdf.format(dateOfBirthday) + '\'' +
-                '}';
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    public Date getDateOfBirthday() {
+        return dateOfBirthday;
+    }
+
+    public void setDateOfBirthday(Date dateOfBirthday) {
+        this.dateOfBirthday = dateOfBirthday;
     }
 
     @Override
@@ -79,12 +111,26 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Double.compare(employee.salary, salary) == 0 && active == employee.active && Objects.equals(name, employee.name) && Objects.equals(surname, employee.surname) && Objects.equals(employeeID, employee.employeeID) && Objects.equals(company, employee.company) && Objects.equals(position, employee.position) && Objects.equals(registerDate, employee.registerDate) && Objects.equals(dateOfBirthday, employee.dateOfBirthday);
+        return Double.compare(employee.salary, salary) == 0 && active == employee.active && Objects.equals(name, employee.name) && Objects.equals(surname, employee.surname) && Objects.equals(employeeId, employee.employeeId) && Objects.equals(company, employee.company) && Objects.equals(position, employee.position) && Objects.equals(registerDate, employee.registerDate) && Objects.equals(dateOfBirthday, employee.dateOfBirthday);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, employeeID, salary, company, position, active, registerDate, dateOfBirthday);
+        return Objects.hash(name, surname, employeeId, salary, company, position, active, registerDate, dateOfBirthday);
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", employeeId='" + employeeId + '\'' +
+                ", salary=" + salary +
+                ", company='" + company + '\'' +
+                ", position='" + position + '\'' +
+                ", active=" + active +
+                ", registerDate=" + DateUtil.dateToString(registerDate) +
+                ", dateOfBirthday=" + DateUtil.dateToString(dateOfBirthday) +
+                '}';
+    }
 }

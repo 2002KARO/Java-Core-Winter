@@ -1,15 +1,16 @@
 package homework.homework10.employee.model;
 
+import java.util.Objects;
+
 public class Company {
 
-    // Company Data
-    private String id; // Company ID
-    private String name; // Company NAME
-    private String address; // Company ADDRESS
-    private String phoneNumber; // Company PHONE NUMBER
-    private int countOfEmployees; // COUNT OF EMPLOYEES in Company
+    private String id;
+    private String name;
+    private String address;
+    private String phoneNumber;
+    private int countOfEmployees;
 
-    // Constructor
+
     public Company(String id, String name, String address, String phoneNumber) {
         this.id = id;
         this.name = name;
@@ -17,30 +18,62 @@ public class Company {
         this.phoneNumber = phoneNumber;
     }
 
-    // if Empty Constructor
-    public Company(){};
+    public Company() {
+    }
 
-    // Get/Set ID
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() {
+        return id;
+    }
 
-    // Get/Set Name
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    // Get/Set Address
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    public String getName() {
+        return name;
+    }
 
-    // Get/Set Phone Number
-    public String getPhoneNumber() { return phoneNumber; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    // Get/Set Count Of Employees
-    public int getCountOfEmployees() { return countOfEmployees; }
-    public void setCountOfEmployees(int countOfEmployees) { this.countOfEmployees = countOfEmployees; }
+    public String getAddress() {
+        return address;
+    }
 
-    // Override toString;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public int getCountOfEmployees() {
+        return countOfEmployees;
+    }
+
+    public void setCountOfEmployees(int countOfEmployees) {
+        this.countOfEmployees = countOfEmployees;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Company company = (Company) o;
+        return countOfEmployees == company.countOfEmployees && Objects.equals(id, company.id) && Objects.equals(name, company.name) && Objects.equals(address, company.address) && Objects.equals(phoneNumber, company.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address, phoneNumber, countOfEmployees);
+    }
+
     @Override
     public String toString() {
         return "Company{" +
@@ -48,7 +81,7 @@ public class Company {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", countOfEmployees='" + countOfEmployees + '\'' +
+                ", countOfEmployees=" + countOfEmployees +
                 '}';
     }
 }

@@ -1,204 +1,205 @@
 package homework.homework10.employee;
-import homework.homework10.Commands;
+
 import homework.homework10.employee.model.Company;
 import homework.homework10.employee.model.Employee;
 import homework.homework10.employee.storage.CompanyStorage;
 import homework.homework10.employee.storage.EmployeeStorage;
+import homework.homework10.employee.util.DateUtil;
 
-import java.util.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
-
 public class EmployeeDemo implements Commands {
-
-    // -OBJECTS: Scanner; Employee Storage; Company Storage; Date; Simple Date Format
-    static Scanner sc = new Scanner(System.in);
-    static EmployeeStorage es = new EmployeeStorage();
-    static CompanyStorage cs = new CompanyStorage();
-    static Date birthdayDate = new Date();
-    static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    static Scanner scanner = new Scanner(System.in);
+    static EmployeeStorage employeeStorage = new EmployeeStorage();
+    static CompanyStorage companyStorage = new CompanyStorage();
 
     public static void main(String[] args) throws ParseException {
 
-        // boolean for inf run OR if input 0 -> end program
         boolean isRun = true;
+        Company company = new Company("c001","Gexam 000","Gyumri","093371335");
+        company.setCountOfEmployees(3);
+        companyStorage.add(company);
+        employeeStorage.add(new Employee("poxos", "poxosyan", "A1", 100, company, "jr manager", true, new Date(), DateUtil.stringToDate("12/02/2022")));
+        employeeStorage.add(new Employee("petros", "poxosyan", "A2", 200, company, " manager", true, new Date(), DateUtil.stringToDate("08/13/2018")));
+        employeeStorage.add(new Employee("pixatos", "poxosyan", "A3", 300, company,"sr manager", true, new Date(), DateUtil.stringToDate("01/04/2012")));
 
-        // inf while
         while (isRun) {
-
-            // print commands
             Commands.printCommands();
-
-            // input command number
-            String command = sc.nextLine();
-
-            // check command number
+            String command = scanner.nextLine();
             switch (command) {
-
-                // end program
                 case EXIT:
                     isRun = false;
                     break;
-
-                // adding new employee
                 case ADD_EMPLOYEE:
                     addEmployee();
                     break;
-
-                // adding new employee
                 case ADD_COMPANY:
                     addCompany();
                     break;
-
-                // print all employees
                 case PRINT_EMPLOYEES:
-                    es.print();
+                    employeeStorage.print();
                     break;
-
-                // search employee by ID
                 case SEARCH_EMPLOYEE_BY_ID:
-                    System.out.print("please input employee's ID: ");
-                    String id = sc.nextLine();
-                    es.searchById(id);
+                    getEmployeeById();
+                    System.out.println("Please input employee id");
+                    String inputId = scanner.nextLine();
+                    System.out.println(employeeStorage.getEmployeeById(inputId));
                     break;
-
-                // search employee by company name
                 case SEARCH_EMPLOYEE_BY_COMPANY:
-                    cs.print();
-                    System.out.print("please input company id: ");
-                    String cmpId = sc.nextLine();
-                    Company companyByID = cs.getCompanyById(cmpId);
-                    if (companyByID != null) {
-                        System.out.println(es.searchByCompany(cmpId));
-                    } else {
-                        System.out.println("Company with id (" + cmpId + ") not exist");
+                    companyStorage.print();
+                    System.out.println("Please input company id ");
+                    String companyId = scanner.nextLine();
+                    Company companyById = companyStorage.getCompanyById(companyId);
+                    if (companyById != null) {
+                        employeeStorage.searchByCompany(companyById);
+                    }else{
+                        System.out.println("Company does not exists!");
                     }
                     break;
-
-                // search employee by salary range
-                case SEARCH_EMPLOYEE_BY_SALARY_RANGE:
-                    System.out.print("\nfrom: ");
-                    String fromNum = sc.nextLine();
-                    System.out.print("to: ");
-                    String toNum = sc.nextLine();
-                    es.searchBySalaryRange(Double.parseDouble(fromNum), Double.parseDouble(toNum));
+                case CHANGE_EMPLOYEE_BY_SALARY_RANGE:
+                    searchEmployeesBySalaryRange();
                     break;
-
-                // change employee position by id
                 case CHANGE_EMPLOYEE_POSITION:
-                    System.out.print("please input employee's id: ");
-                    String empId = sc.nextLine();
-                    System.out.print("please input new position: ");
-                    String newPosition = sc.nextLine();
-
-                    es.positionChangeById(empId, newPosition);
+                    changeEmployeePositionById();
                     break;
-
-                // print all active employees
                 case PRINT_ONLY_ACTIVE_EMPLOYEES:
-                    es.getActiveEmp();
+                    employeeStorage.printByStatus(true);
                     break;
-
-                // inactivate employee
                 case INACTIVATE_EMPLOYEES:
-                    System.out.print("please input employee's id: ");
-                    String eId = sc.nextLine();
-                    es.inactiveEmp(eId);
+                    inactivateEmployeeById();
                     break;
-
-                // activate employee
                 case ACTIVATE_EMPLOYEES:
-                    System.out.print("please input employee's id: ");
-                    String emId = sc.nextLine();
-                    es.activateEmp(emId);
+                    activateEmployeeById();
                     break;
-
-                // print all companies
                 case PRINT_ALL_COMPANIES:
-                    cs.print();
+                    companyStorage.print();
                     break;
-
-                // if inputted command wrong
                 default:
-                    System.out.println("wrong command please try again!");
+                    System.out.println("wrong command, try again!");
             }
         }
 
     }
 
-    // Method for adding new company
     private static void addCompany() {
-        System.out.print("please input company id: ");
-        String cmpID = sc.nextLine();
-        System.out.print("please input company name: ");
-        String cmpName = sc.nextLine();
-        System.out.print("please input company address: ");
-        String cmpAddress = sc.nextLine();
-        System.out.print("please input company phone number: ");
-        String cmpPhoneNumber = sc.nextLine();
-        Company newCompany = new Company(cmpID, cmpName, cmpAddress, cmpPhoneNumber);
-        cs.add(newCompany);
-    }
-
-    // CountOfEmployees++ if added an employee
-    private static void addCountOfEmployeesOfCompany(String ID){
-        Company cmp = cs.getCompanyById(ID);
-        if(cmp != null){
-            cmp.setCountOfEmployees(cmp.getCountOfEmployees() + 1);
-        }
-    }
-
-    // Method for adding new employee
-    private static void addEmployee() throws ParseException {
-        if (cs.getSize() == 0) { // if Company Storage is empty
-            System.out.println("Error: No companies");
-            System.out.println("Please create at least one company first!");
-            addCompany();
-            System.out.println("Nice, now you can add an employee");
-            addEmployee();
+        System.out.println("Please input company id,name,address,phone");
+        String companyDataStr = scanner.nextLine();
+        String[] companyData = companyDataStr.split(",");
+        String companyId = companyData[0];
+        Company companyById = companyStorage.getCompanyById(companyId);
+        if (companyById == null) {
+            Company company = new Company(companyId, companyData[1], companyData[2], companyData[3]);
+            companyStorage.add(company);
+            System.out.println("Company added!");
         } else {
-            cs.print(); // print all companies
-            System.out.print("Please choose company id: ");
-            String chooseId = sc.nextLine();
-            Company company = cs.getCompanyById(chooseId);
-            if (company == null) { // if inputted id is wrong
-                System.out.println("Wrong company id, please try again!");
-                addEmployee();
-            } else {
-                System.out.print("\ninput name: ");
-                String name = sc.nextLine();
-                System.out.print("input surname: ");
-                String surname = sc.nextLine();
-                System.out.print("input employee ID: ");
-                String empId = sc.nextLine();
-                System.out.print("input salary: ");
-                String salary = sc.nextLine();
-                System.out.print("input position: ");
-                String position = sc.nextLine();
-                System.out.print("input birthday date (dd/MM/yyyy): ");
-                String dateOfBirthday = sc.nextLine();
+            System.out.println("Company with" + companyId + "already exists");
 
-                birthdayDate = sdf.parse(dateOfBirthday);
-                Date regDate = new Date();
+        }
+    }
 
-                // if the input id is already in use
-                while (es.idChecker(empId)) {
-                    System.out.println("\nThis ID already exist! Try Another!");
-                    System.out.print("input ID: ");
-                    empId = sc.nextLine();
-                }
 
-                // Add employee
-                Employee employee = new Employee(name, surname, empId, Double.parseDouble(salary), company, position, birthdayDate, regDate);
-                es.add(employee);
-                addCountOfEmployeesOfCompany(company.getId());
-
-                System.out.println("\nEmployee was added");
-            }
+    private static void inactivateEmployeeById() {
+        employeeStorage.printByStatus(true);
+        System.out.println("Please choose employee id");
+        String employeeId = scanner.nextLine();
+        Employee employee = employeeStorage.getEmployeeById(employeeId);
+        if (employee != null) {
+            employee.setActive(false);
+            employee.getCompany().setCountOfEmployees(employee.getCompany().getCountOfEmployees()-1);
+            System.out.println("Employee inactivated");
+        } else {
+            System.out.println("Employee does not exists,please try again.");
         }
 
     }
 
+    private static void activateEmployeeById() {
+        employeeStorage.printByStatus(false);
+        System.out.println("Please choose employee id");
+        String employeeId = scanner.nextLine();
+        Employee employee = employeeStorage.getEmployeeById(employeeId);
+        if (employee != null && !employee.isActive()) {
+            employee.setActive(true);
+            System.out.println("Employee activated");
+        } else {
+            System.out.println("Employee does not exists, or employee already active,please try again.");
+        }
+
+    }
+
+    private static void changeEmployeePositionById() {
+        employeeStorage.print();
+        System.out.println("Please choose employee id");
+        String employeeId = scanner.nextLine();
+        Employee employee = employeeStorage.getEmployeeById(employeeId);
+        if (employee != null) {
+            System.out.println("Please input new position");
+            String newPosition = scanner.nextLine();
+            employee.setPosition(newPosition);
+            System.out.println("Position changed");
+        } else {
+            System.out.println("Employee does not exists,please try again.");
+        }
+
+    }
+
+    private static void searchEmployeesBySalaryRange() {
+        System.out.println("Please input min,max");
+        String salaryRangeStr = scanner.nextLine();
+        String[] salaryRange = salaryRangeStr.split(",");
+        double minSalary = Double.parseDouble(salaryRange[0]);
+        double maxSalary = Double.parseDouble(salaryRange[1]);
+        if (minSalary > maxSalary) {
+            System.out.println("min salary should be less then max salary");
+        } else {
+            employeeStorage.searchBySalaryRange(minSalary, maxSalary);
+        }
+
+
+    }
+
+    private static void getEmployeeById() {
+        System.out.println("Please input employee id");
+        String employeeId = scanner.nextLine();
+        Employee employee = employeeStorage.getEmployeeById(employeeId);
+        if (employee == null) {
+            System.out.println("Employee with" + employeeId + " does not exists");
+        } else {
+            System.out.println(employee);
+        }
+    }
+
+    private static void addEmployee() throws ParseException {
+        if (companyStorage.getSize() == 0) {
+            System.out.println("Please add company first!! ");
+            return;
+        }
+        companyStorage.print();
+        System.out.println("Please choose company id");
+        String companyId = scanner.nextLine();
+        Company companyById = companyStorage.getCompanyById(companyId);
+        if (companyById != null) {
+            System.out.println("Please input name, surname, employeeId, salary,  position,dateOfBirthday(15/04/1994");
+            String employeeDataStr = scanner.nextLine();
+            String[] employeeData = employeeDataStr.split(",");
+            String employeeId = employeeData[2];
+            Employee employee = employeeStorage.getEmployeeById(employeeId);
+            if (employee == null) {
+                Date registerDate = new Date();
+                Date dateOfBirthday = DateUtil.stringToDate(employeeData[5]);
+                Employee newEmployee = new Employee(employeeData[0], employeeData[1], employeeId,
+                        Double.parseDouble(employeeData[3]), companyById,
+                        employeeData[4], true, registerDate, dateOfBirthday);
+                employeeStorage.add(newEmployee);
+                companyById.setCountOfEmployees(companyById.getCountOfEmployees() + 1);
+                System.out.println("Employee was added");
+            } else {
+                System.out.println("employee with" + employeeId + "already exists!!!");
+            }
+
+
+        }
+    }
 }
