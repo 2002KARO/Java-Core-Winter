@@ -18,12 +18,12 @@ public class EmployeeDemo implements Commands {
     public static void main(String[] args) throws ParseException {
 
         boolean isRun = true;
-        Company company = new Company("c001","Gexam 000","Gyumri","093371335");
+        Company company = new Company("c001", "Tony", "New York", "093371335");
         company.setCountOfEmployees(3);
         companyStorage.add(company);
-        employeeStorage.add(new Employee("poxos", "poxosyan", "A1", 100, company, "jr manager", true, new Date(), DateUtil.stringToDate("12/02/2022")));
-        employeeStorage.add(new Employee("petros", "poxosyan", "A2", 200, company, " manager", true, new Date(), DateUtil.stringToDate("08/13/2018")));
-        employeeStorage.add(new Employee("pixatos", "poxosyan", "A3", 300, company,"sr manager", true, new Date(), DateUtil.stringToDate("01/04/2012")));
+        employeeStorage.add(new Employee("Jack", "Braun", "A1", 100, company, "junior manager", true, new Date(), DateUtil.stringToDate("12/02/2022")));
+        employeeStorage.add(new Employee("Daniel", "Ball", "A2", 200, company, " middle manager", true, new Date(), DateUtil.stringToDate("08/13/2018")));
+        employeeStorage.add(new Employee("Bobby", "Barber", "A3", 300, company, " senior manager", true, new Date(), DateUtil.stringToDate("01/04/2012")));
 
         while (isRun) {
             Commands.printCommands();
@@ -54,7 +54,7 @@ public class EmployeeDemo implements Commands {
                     Company companyById = companyStorage.getCompanyById(companyId);
                     if (companyById != null) {
                         employeeStorage.searchByCompany(companyById);
-                    }else{
+                    } else {
                         System.out.println("Company does not exists!");
                     }
                     break;
@@ -107,7 +107,7 @@ public class EmployeeDemo implements Commands {
         Employee employee = employeeStorage.getEmployeeById(employeeId);
         if (employee != null) {
             employee.setActive(false);
-            employee.getCompany().setCountOfEmployees(employee.getCompany().getCountOfEmployees()-1);
+            employee.getCompany().setCountOfEmployees(employee.getCompany().getCountOfEmployees() - 1);
             System.out.println("Employee inactivated");
         } else {
             System.out.println("Employee does not exists,please try again.");
@@ -149,16 +149,21 @@ public class EmployeeDemo implements Commands {
         System.out.println("Please input min,max");
         String salaryRangeStr = scanner.nextLine();
         String[] salaryRange = salaryRangeStr.split(",");
-        double minSalary = Double.parseDouble(salaryRange[0]);
-        double maxSalary = Double.parseDouble(salaryRange[1]);
-        if (minSalary > maxSalary) {
-            System.out.println("min salary should be less then max salary");
-        } else {
+        try {
+            double minSalary = Double.parseDouble(salaryRange[0]);
+            double maxSalary = Double.parseDouble(salaryRange[1]);
+            if (maxSalary < minSalary) {
+                System.out.println("min salary should be less then max salary");
+                return;
+            }
             employeeStorage.searchBySalaryRange(minSalary, maxSalary);
+        } catch (NumberFormatException e) {
+            System.out.println("Incorrect number values please try again");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please input min and max salary");
         }
-
-
     }
+
 
     private static void getEmployeeById() {
         System.out.println("Please input employee id");
@@ -170,7 +175,6 @@ public class EmployeeDemo implements Commands {
             System.out.println(employee);
         }
     }
-
     private static void addEmployee() throws ParseException {
         if (companyStorage.getSize() == 0) {
             System.out.println("Please add company first!! ");
@@ -203,3 +207,6 @@ public class EmployeeDemo implements Commands {
         }
     }
 }
+
+
+
